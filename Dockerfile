@@ -13,11 +13,11 @@ COPY ./pyproject.toml ./poetry.lock /app/
 ARG ENV
 
 RUN if [ "$ENV" = "prod" ]; then \
-    	poetry install --no-root; \
+    	poetry install; \
   	elif [ "$ENV" = "local" ]; then \
-    	poetry install --no-root --with local,test; \
+    	poetry install --with local,test; \
     elif [ "$ENV" = "test" ]; then \
-      	poetry install --no-root --with test; \
+      	poetry install --with test; \
     fi
 
 COPY . .

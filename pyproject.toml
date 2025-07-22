@@ -1,19 +1,14 @@
-[project]
+[tool.poetry]
 name = "drfbooking"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Your Name",email = "max.b04.03@gmail.com"}
-]
+description = "Django DRF project"
+authors = ["MaximBrezhnev <max.b04.03@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "django (>=5.2.4,<6.0.0)",
-]
+package-mode = false
 
-
-[tool.poetry.group.local]
-optional = true
+[tool.poetry.dependencies]
+python = "^3.12"
+django = ">=5.2.4,<6.0.0"
 
 [tool.poetry.group.local.dependencies]
 pre-commit = "^4.2.0"
