@@ -30,11 +30,8 @@ class RoomService:
 
         if serializer.is_valid():
             room = serializer.save()
-            response_serializer = CreatedRoomReadSerializer(
-                instance={"room_id": room.id}
-            )
             return Response(
-                data=response_serializer.data, status=status.HTTP_201_CREATED
+                data={"room_id": room.id}, status=status.HTTP_201_CREATED
             )
 
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)

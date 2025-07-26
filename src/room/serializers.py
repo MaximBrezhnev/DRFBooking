@@ -13,12 +13,6 @@ class RoomCreateSerializer(serializers.ModelSerializer):
         fields = ["description", "price_per_night"]
 
 
-class CreatedRoomReadSerializer(serializers.Serializer):
-    """Сериализатор для отображения данных добавленного номера"""
-
-    room_id = serializers.UUIDField()
-
-
 class RoomReadSerializer(serializers.ModelSerializer):
     """Сериализатор для отображения данных номера."""
 

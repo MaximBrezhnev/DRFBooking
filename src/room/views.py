@@ -12,17 +12,20 @@ from src.room.service import RoomService
 class RoomViewSet(ModelViewSet):
     """Набор представлений для работы с номерами отеля."""
 
+    lookup_field = "id"
+    service = RoomService
+
     def create(self, request, *args, **kwargs):
         """Добавить номер в отель."""
 
-        return RoomService.create_room(request=request)
+        return self.service.create_room(request=request)
 
     def destroy(self, request: Request, *args, **kwargs) -> Response:
         """Удалить номер из отеля."""
 
-        return RoomService.delete_room(room_id=kwargs["pk"])
+        return self.service.delete_room(room_id=kwargs[self.lookup_field])
 
     def list(self, request: Request, *args, **kwargs) -> Response:
         """Получить список номеров отеля."""
 
-        return RoomService.get_room_list(request=request)
+        return self.service.get_room_list(request=request)
