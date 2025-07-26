@@ -4,6 +4,7 @@
 
 from rest_framework import filters, mixins, viewsets
 
+from src.room.models import Room
 from src.room.serializers import RoomReadSerializer
 from src.room.service import RoomService
 
@@ -17,6 +18,7 @@ class RoomViewSet(
     """Набор представлений для работы с номерами отеля."""
 
     lookup_field = "id"
+    queryset = Room.objects.all()
     serializer_class = RoomReadSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ["price_per_night", "created_at"]
