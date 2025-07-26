@@ -11,7 +11,7 @@ python = "^3.12"
 django = ">=5.2.4,<6.0.0"
 djangorestframework = "^3.16.0"
 
-[tool.poetry.group.local.dependencies]
+[tool.poetry.group.dev.dependencies]
 pre-commit = "^4.2.0"
 
 [build-system]
