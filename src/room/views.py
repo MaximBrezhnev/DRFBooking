@@ -2,38 +2,27 @@
 Модуль представлений для работы с номерами отеля.
 """
 
-import uuid
-from http import HTTPMethod
-
-from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 from src.room.service import RoomService
 
 
-@api_view([HTTPMethod.POST])
-def create_room(request: Request) -> Response:
-    """
-    Добавить номер в отель.
-    """
+class RoomViewSet(ModelViewSet):
+    """Набор представлений для работы с номерами отеля."""
 
-    return RoomService.create_room(request=request)
+    def create(self, request, *args, **kwargs):
+        """Добавить номер в отель."""
 
+        return RoomService.create_room(request=request)
 
-@api_view([HTTPMethod.GET])
-def get_room_list(request: Request) -> Response:
-    """
-    Получить список номеров отеля.
-    """
+    def destroy(self, request: Request, *args, **kwargs) -> Response:
+        """Удалить номер из отеля."""
 
-    return RoomService.get_room_list(request=request)
+        return RoomService.delete_room(room_id=kwargs["pk"])
 
+    def list(self, request: Request, *args, **kwargs) -> Response:
+        """Получить список номеров отеля."""
 
-@api_view([HTTPMethod.DELETE])
-def delete_room(room_id: uuid.UUID) -> Response:
-    """
-    Удалить комнату из отеля.
-    """
-
-    RoomService.delete_room(room_id=room_id)
+        return RoomService.get_room_list(request=request)

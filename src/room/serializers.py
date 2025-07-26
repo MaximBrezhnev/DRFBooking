@@ -6,7 +6,7 @@ from src.room.models import Room
 
 
 class RoomCreateSerializer(serializers.ModelSerializer):
-    """"""  # TODO
+    """Сериализатор для создания номера отеля."""
 
     class Meta:
         model = Room
@@ -14,13 +14,13 @@ class RoomCreateSerializer(serializers.ModelSerializer):
 
 
 class CreatedRoomReadSerializer(serializers.Serializer):
-    """"""  # TODO
+    """Сериализатор для отображения данных добавленного номера"""
 
     room_id = serializers.UUIDField()
 
 
 class RoomReadSerializer(serializers.ModelSerializer):
-    """"""  # TODO
+    """Сериализатор для отображения данных номера."""
 
     class Meta:
         model = Room

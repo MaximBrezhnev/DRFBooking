@@ -24,9 +24,7 @@ class RoomService:
 
     @staticmethod
     def create_room(request: Request) -> Response:
-        """
-        #TODO
-        """
+        """Добавить номер в отель."""
 
         serializer = RoomCreateSerializer(data=request.data)
 
@@ -43,9 +41,7 @@ class RoomService:
 
     @staticmethod
     def get_room_list(request: Request) -> Response:
-        """
-        #TODO
-        """
+        """Получить список номеров отеля."""
 
         sort_by = request.GET.get("sort_by", "created_at")
         order = request.GET.get("order", "asc")
@@ -61,9 +57,7 @@ class RoomService:
 
     @staticmethod
     def delete_room(room_id: uuid.UUID) -> Response:
-        """
-        #TODO
-        """
+        """Удалить номер из отеля."""
 
         try:
             room = Room.objects.get(id=room_id)
