@@ -2,6 +2,7 @@
 Модуль представлений для работы с номерами отеля.
 """
 
+import uuid
 from http import HTTPMethod
 
 from rest_framework.decorators import api_view
@@ -27,3 +28,12 @@ def get_room_list(request: Request) -> Response:
     """
 
     return RoomService.get_room_list(request=request)
+
+
+@api_view([HTTPMethod.DELETE])
+def delete_room(room_id: uuid.UUID) -> Response:
+    """
+    Удалить комнату из отеля.
+    """
+
+    RoomService.delete_room(room_id=room_id)
