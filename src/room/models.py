@@ -5,7 +5,7 @@ import uuid
 from django.db import models
 
 
-class RoomModel(models.Model):
+class Room(models.Model):
     """Модель номера отеля."""
 
     id = models.UUIDField(

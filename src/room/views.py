@@ -18,3 +18,12 @@ def create_room(request: Request) -> Response:
     """
 
     return RoomService.create_room(request=request)
+
+
+@api_view([HTTPMethod.GET])
+def get_room_list(request: Request) -> Response:
+    """
+    Получить список номеров отеля.
+    """
+
+    return RoomService.get_room_list(request=request)
