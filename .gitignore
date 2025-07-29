@@ -1,2 +1,3 @@
 .secrets.yaml
+docker-compose.localdb.yml
 .idea
