@@ -1,8 +1,7 @@
 """Сериализаторы для работы с номерами отеля."""
 
 from rest_framework import serializers
-
-from src.room.models import Room
+from room.models import Room
 
 
 class RoomCreateSerializer(serializers.ModelSerializer):

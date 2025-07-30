@@ -6,10 +6,10 @@ import uuid
 
 from rest_framework import status
 from rest_framework.response import Response
+from room.models import Room
 
-from src.booking.models import Booking
-from src.booking.serializers import BookingCreateSerializer, BookingReadSerializer
-from src.room.models import Room
+from booking.models import Booking
+from booking.serializers import BookingCreateSerializer, BookingReadSerializer
 
 
 class BookingService:

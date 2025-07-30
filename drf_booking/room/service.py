@@ -5,8 +5,7 @@
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
-
-from src.room.serializers import (
+from room.serializers import (
     RoomCreateSerializer,
 )
 

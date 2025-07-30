@@ -3,8 +3,7 @@
 import uuid
 
 from django.db import models
-
-from src.room.models import Room
+from room.models import Room
 
 
 class Booking(models.Model):

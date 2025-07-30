@@ -3,10 +3,9 @@
 """
 
 from rest_framework import filters, mixins, viewsets
-
-from src.room.models import Room
-from src.room.serializers import RoomReadSerializer
-from src.room.service import RoomService
+from room.models import Room
+from room.serializers import RoomReadSerializer
+from room.service import RoomService
 
 
 class RoomViewSet(

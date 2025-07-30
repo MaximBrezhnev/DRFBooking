@@ -10,8 +10,8 @@ from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from src.booking.serializers import BookingCreateSerializer
-from src.booking.service import BookingService
+from booking.serializers import BookingCreateSerializer
+from booking.service import BookingService
 
 
 class BookingViewSet(

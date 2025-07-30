@@ -3,7 +3,7 @@ from pathlib import Path
 from dynaconf import Dynaconf
 
 settings = Dynaconf(
-    settings_files=["../src/settings.yaml", "../src/.secrets.yaml"],
+    settings_files=["../drf_booking/settings.yaml", "../drf_booking/.secrets.yaml"],
     environments=True,
 )
 

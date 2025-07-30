@@ -1,9 +1,10 @@
 """
 Сериализаторы для работы с бронями.
 """
+
 from rest_framework import serializers
 
-from src.booking.models import Booking
+from booking.models import Booking
 
 
 class BookingCreateSerializer(serializers.ModelSerializer):
@@ -13,11 +14,13 @@ class BookingCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Booking
-        fields = ['room_id', 'date_start', 'date_end']
+        fields = ["room_id", "date_start", "date_end"]
 
     def validate(self, data):
-        if data['date_start'] > data['date_end']:
-            raise serializers.ValidationError("Дата начала не может быть позже даты окончания.")
+        if data["date_start"] > data["date_end"]:
+            raise serializers.ValidationError(
+                "Дата начала не может быть позже даты окончания."
+            )
         return data
 
 

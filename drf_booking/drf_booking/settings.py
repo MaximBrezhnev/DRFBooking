@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "src.room",
-    "src.booking",
+    "room",
+    "booking",
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "src.config.urls"
+ROOT_URLCONF = "drf_booking.urls"
 
 TEMPLATES = [
     {
