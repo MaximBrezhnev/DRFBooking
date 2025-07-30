@@ -15,7 +15,11 @@ class Room(models.Model):
         help_text="ID номера в БД.",
     )
     description = models.TextField(help_text="Описание номера.")
-    price_per_night = models.DecimalField(help_text="Цена за ночь за номер.")
+    price_per_night = models.DecimalField(
+        help_text="Цена за ночь за номер.",
+        max_digits=10,
+        decimal_places=2,
+    )
     created_at = models.DateTimeField(
         auto_now_add=True, help_text="Дата и время добавления номера."
     )
