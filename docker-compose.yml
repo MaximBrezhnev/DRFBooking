@@ -1,0 +1,29 @@
+version: "3.0"
+
+services:
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - ~/.pg/pg_data/drf_booking:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}"
+    networks:
+      - custom
+
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+    working_dir: /app/src
+    ports:
+      - "8000:8000"
+    command: >
+      gunicorn -b 0.0.0.0:8000 config.wsgi:application"
+    networks:
+      - custom
+
+networks:
+  custom:
