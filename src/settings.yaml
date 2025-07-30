@@ -1,0 +1,11 @@
+default:
+  SECRET_KEY: ""
+  DEBUG: true
+  ALLOWED_HOSTS:
+    - 127.0.0.1
+    - localhost
+  POSTGRES_DB: ""
+  POSTGRES_USER: ""
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST: ""
+  POSTGRES_PORT: 5432
