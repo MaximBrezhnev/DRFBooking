@@ -12,9 +12,7 @@ COPY ./pyproject.toml ./poetry.lock /app/
 
 ARG ENV
 
-RUN if [ "$ENV" = "prod" ]; then \
-    	poetry install; \
-  	elif [ "$ENV" = "dev" ]; then \
+RUN if [ "$ENV" = "development" ]; then \
     	poetry install --with dev,test; \
     elif [ "$ENV" = "test" ]; then \
       	poetry install --with test; \
