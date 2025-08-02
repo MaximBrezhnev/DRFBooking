@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "src.wsgi.application"
+WSGI_APPLICATION = "drf_booking.wsgi.application"
 
 
 # Database
@@ -79,11 +79,11 @@ WSGI_APPLICATION = "src.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": settings_.get("DB_NAME"),
-        "USER": settings_.get("DB_USER"),
-        "PASSWORD": settings_.get("DB_PASSWORD"),
-        "HOST": settings_.get("DB_HOST"),
-        "PORT": settings_.get("DB_PORT"),
+        "NAME": settings_.get("POSTGRES_DB"),
+        "USER": settings_.get("POSTGRES_USER"),
+        "PASSWORD": settings_.get("POSTGRES_PASSWORD"),
+        "HOST": settings_.get("POSTGRES_HOST"),
+        "PORT": settings_.get("POSTGRES_PORT"),
     }
 }
 
