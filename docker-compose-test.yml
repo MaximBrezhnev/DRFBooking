@@ -1,0 +1,31 @@
+services:
+  db-test:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      - custom
+
+  app-test:
+    depends_on:
+      - db-test
+    build:
+      context: .
+      args:
+        ENV: test
+    working_dir: /app/src
+    ports:
+      - "8000:8000"
+    command: sh -c "
+      python manage.py migrate &&
+      pytest \
+      -s -r A \
+      --rootdir=/app/ \
+      --disable-pytest-warnings"
+    networks:
+      - custom
+
+networks:
+  custom:
