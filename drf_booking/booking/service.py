@@ -4,12 +4,11 @@
 
 import uuid
 
+from booking.models import Booking
+from booking.serializers import BookingCreateSerializer, BookingReadSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from room.models import Room
-
-from booking.models import Booking
-from booking.serializers import BookingCreateSerializer, BookingReadSerializer
 
 
 class BookingService:
@@ -28,20 +27,18 @@ class BookingService:
         if not room_exists:
             return Response(
                 data={"detail": "Related room does not exist"},
-                status=status.HTTP_400_BAD_REQUEST,
+                status=status.HTTP_404_NOT_FOUND,
             )
 
         overlap_exists = Booking.objects.filter(
             room_id=validated_data["room_id"],
-            start_date__lt=validated_data["start_date"],
-            end_date__gt=validated_data["end_date"],
+            date_start__lt=validated_data["date_end"],
+            date_end__gt=validated_data["date_start"],
         ).exists()
         if overlap_exists:
             return Response(
-                data={
-                    "detail": "The room is already booked for these dates",
-                    "status": status.HTTP_409_CONFLICT,
-                }
+                data={"detail": "The room is already booked for these dates"},
+                status=status.HTTP_409_CONFLICT,
             )
 
         booking = serializer.save()
@@ -50,6 +47,13 @@ class BookingService:
     @staticmethod
     def get_booking_list(room_id: uuid.UUID) -> Response:
         """Получить список броней на номер."""
+
+        room_exists = Room.objects.filter(id=room_id).exists()
+        if not room_exists:
+            return Response(
+                data={"detail": "Room not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
         booking_list = Booking.objects.filter(room_id=room_id).order_by("date_start")
         serializer = BookingReadSerializer(instance=booking_list, many=True)

@@ -5,13 +5,13 @@
 import uuid
 from http import HTTPMethod
 
+from booking.models import Booking
+from booking.serializers import BookingCreateSerializer
+from booking.service import BookingService
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
-
-from booking.serializers import BookingCreateSerializer
-from booking.service import BookingService
 
 
 class BookingViewSet(
@@ -24,6 +24,7 @@ class BookingViewSet(
 
     lookup_field = "id"
     service = BookingService
+    queryset = Booking.objects.all()
 
     def create(self, request: Request, *args, **kwargs) -> Response:
         """Оформить бронь на номер."""

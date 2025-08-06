@@ -3,7 +3,6 @@
 import uuid
 from decimal import Decimal
 
-import pytest
 from booking.models import Booking
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
@@ -12,8 +11,7 @@ from room.models import Room
 
 
 # MARK: POST
-@pytest.mark.django_db
-def test_create_room(api_client: APIClient, room_create_data: dict[str, str]) -> None:
+def test_create_room(db, api_client: APIClient, room_create_data: dict[str, str]):
     """Возможно добавить номер в отель."""
 
     response = api_client.post(
@@ -34,10 +32,9 @@ def test_create_room(api_client: APIClient, room_create_data: dict[str, str]) ->
     assert response.status_code == status.HTTP_201_CREATED
 
 
-@pytest.mark.django_db
 def test_create_room_invalid_data(
-    api_client: APIClient, invalid_room_create_data: dict[str, float]
-) -> None:
+    db, api_client: APIClient, invalid_room_create_data: dict[str, str]
+):
     """Невозможно добавить номер в отель, передав некорректные данные."""
 
     response = api_client.post(
@@ -56,12 +53,11 @@ def test_create_room_invalid_data(
 
 
 # MARK: GET
-@pytest.mark.django_db
 def test_get_room_list(
     api_client: APIClient,
     room_db: Room,
     second_room_db: Room,
-) -> None:
+):
     """Возможно получить несортированный список номеров отеля."""
 
     response = api_client.get(path="/api/v1/room/")
@@ -78,7 +74,7 @@ def test_get_room_list(
 
     assert received_room["id"] == str(room_db.id)
     assert received_room["description"] == room_db.description
-    assert Decimal(received_room["price_per_night"]) == Decimal(room_db.price_per_night)
+    assert Decimal(received_room["price_per_night"]) == room_db.price_per_night
 
     assert second_received_room["id"] == str(second_room_db.id)
     assert second_received_room["description"] == second_room_db.description
@@ -90,12 +86,11 @@ def test_get_room_list(
     assert response.status_code == status.HTTP_200_OK
 
 
-@pytest.mark.django_db
 def test_get_room_list_sorted(
     api_client: APIClient,
     room_db: Room,
     second_room_db: Room,
-) -> None:
+):
     """Возможно получить отсортированный список номеров отеля."""
 
     response = api_client.get(
@@ -117,16 +112,13 @@ def test_get_room_list_sorted(
 
     assert second_received_room["id"] == str(room_db.id)
     assert second_received_room["description"] == room_db.description
-    assert Decimal(second_received_room["price_per_night"]) == Decimal(
-        room_db.price_per_night
-    )
+    assert Decimal(second_received_room["price_per_night"]) == room_db.price_per_night
 
     assert response.status_code == status.HTTP_200_OK
 
 
 # MARK: DELETE
-@pytest.mark.django_db
-def test_delete_room(api_client: APIClient, booking_db: Booking) -> None:
+def test_delete_room(db, api_client: APIClient, booking_db: Booking):
     """Возможно удалить из отеля номер и все его брони."""
 
     response = api_client.delete(path=f"/api/v1/room/{booking_db.room_id}/")
@@ -139,8 +131,7 @@ def test_delete_room(api_client: APIClient, booking_db: Booking) -> None:
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
 
-@pytest.mark.django_db
-def test_delete_room_not_found(api_client: APIClient) -> None:
+def test_delete_room_not_found(db, api_client: APIClient):
     """Невозможно удалить несуществующий номер отеля."""
 
     response = api_client.delete(path=f"/api/v1/room/{uuid.uuid4()}/")
