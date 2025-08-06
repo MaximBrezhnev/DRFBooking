@@ -3,7 +3,6 @@
 import uuid
 
 from django.db import models
-from room.models import Room
 
 
 class Booking(models.Model):
@@ -18,7 +17,7 @@ class Booking(models.Model):
     date_start = models.DateField(help_text="Дата начала действия брони.")
     date_end = models.DateField(help_text="Дата окончания действия брони.")
     room = models.ForeignKey(
-        Room,
+        "room.Room",
         on_delete=models.CASCADE,
         help_text="Номер, на который оформлена бронь, в БД.",
     )
