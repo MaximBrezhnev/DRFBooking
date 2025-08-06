@@ -12,10 +12,16 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
-from dynaconf import settings as settings_
+from dynaconf import Dynaconf
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+settings_ = Dynaconf(
+    settings_files=["drf_booking/settings.yaml", "drf_booking/.secrets.yaml"],
+    environments=True,
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,8 +33,7 @@ SECRET_KEY = settings_.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = settings_.get("DEBUG")
 
-ALLOWED_HOSTS = settings_.get("ALLOWED_HOSTS")
-
+ALLOWED_HOSTS = settings_.get("ALLOWED_HOSTS").to_list()
 
 # Application definition
 
@@ -39,8 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "room",
     "booking",
+    "room",
 ]
 
 MIDDLEWARE = [
