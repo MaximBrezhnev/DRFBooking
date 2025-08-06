@@ -1,29 +1,31 @@
 services:
-  db:
+  db-dev:
     image: postgres:16-alpine
     volumes:
       - ~/.pg/pg_data/drf_booking:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}"
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     networks:
-      - custom
+      - dev
 
   app:
     depends_on:
-      - db
+      - db-dev
     build:
       context: .
       args:
-        ENV: dev
-    working_dir: /app/src
+        ENV: development
     ports:
       - "8000:8000"
-    command: >
-      gunicorn -b 0.0.0.0:8000 config.wsgi:application"
+    working_dir: /app/drf_booking
+    command: sh -c "
+      export ENV_FOR_DYNACONF=development &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
     networks:
-      - custom
+      - dev
 
 networks:
-  custom:
+  dev:
