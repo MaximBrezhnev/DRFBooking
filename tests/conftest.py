@@ -1,6 +1,7 @@
 """Модуль фикстур для тестирования."""
 
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal
 
 import pytest
 from booking.models import Booking
@@ -21,7 +22,7 @@ def api_client() -> APIClient:
 
 # MARK: Room
 @pytest.fixture
-def room_create_data() -> dict[str, str | float]:
+def room_create_data() -> dict[str, str]:
     """
     Подготовить данные для отправки в теле запроса с
     целью добавления номера.
@@ -29,18 +30,24 @@ def room_create_data() -> dict[str, str | float]:
 
     return {
         "description": faker.text(),
-        "price_per_night": faker.pyfloat(positive=True),
+        "price_per_night": str(
+            faker.pyfloat(positive=True, left_digits=7, right_digits=2)
+        ),
     }
 
 
 @pytest.fixture
-def invalid_room_create_data() -> dict[str, float]:
+def invalid_room_create_data() -> dict[str, str]:
     """
     Подготовить некорректные данные для отправки в теле запроса
     с целью добавления номера.
     """
 
-    return {"price_per_night": faker.pyfloat(positive=True)}
+    return {
+        "price_per_night": str(
+            faker.pyfloat(positive=True, left_digits=7, right_digits=2)
+        )
+    }
 
 
 @pytest.fixture
@@ -51,7 +58,7 @@ def room_db(db, room_create_data: dict[str, str | float]) -> Room:
 
 
 @pytest.fixture
-def second_room_db(db, room_create_data: dict[str, str | float]) -> Room:
+def second_room_db(db, room_create_data: dict[str, str]) -> Room:
     """
     Создать второй номер отеля в БД.
 
@@ -61,12 +68,14 @@ def second_room_db(db, room_create_data: dict[str, str | float]) -> Room:
 
     return Room.objects.create(
         description=faker.text(),
-        price_per_night=room_create_data["price"] + faker.pyfloat(positive=True),
+        price_per_night=Decimal(room_create_data["price_per_night"])
+        + Decimal(str(faker.pyfloat(positive=True, left_digits=7, right_digits=2))),
     )
 
 
 # MARK: Booking
-async def booking_db(room_db: Room) -> Booking:
+@pytest.fixture
+def booking_db(room_db: Room) -> Booking:
     """Создать в БД бронь первого номера."""
 
     return Booking.objects.create(
