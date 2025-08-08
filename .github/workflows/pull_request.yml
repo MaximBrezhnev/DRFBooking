@@ -28,7 +28,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry config virtualenvs.create false
-          poetry install --no-interaction --no-ansi
+          poetry install --no-interaction --no-ansi --with dev
 
       - name: Run Ruff format and fix (via Poetry)
         run: |
