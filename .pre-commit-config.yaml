@@ -13,8 +13,3 @@ repos:
         language: system
         types: [python]
 
-      - id: ruff-check-imports
-        name: ruff check --fix --select I
-        entry: poetry run ruff check --fix --select I
-        language: system
-        types: [ python ]

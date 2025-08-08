@@ -27,4 +27,10 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
-select = ["E4", "E7", "E9", "F", "B"]
+extend-select = ["I"]
+fix = true
+
+[tool.ruff.isort]
+known-first-party = ["booking", "room"]
+combine-as-imports = true
+force-single-line = false
