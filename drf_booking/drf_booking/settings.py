@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 from dynaconf import Dynaconf
@@ -19,7 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 settings_ = Dynaconf(
-    settings_files=["drf_booking/settings.yaml", "drf_booking/.secrets.yaml"],
+    settings_files=[
+        os.path.join("drf_booking", "settings.yaml"),
+        os.path.join("drf_booking", ".secrets.yaml"),
+    ],
     environments=True,
 )
 
