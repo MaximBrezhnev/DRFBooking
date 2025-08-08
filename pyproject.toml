@@ -25,3 +25,6 @@ pytest-django = "^4.11.1"
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = ["E4", "E7", "E9", "F", "B"]
