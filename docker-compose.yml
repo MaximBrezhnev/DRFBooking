@@ -18,12 +18,12 @@ services:
       args:
         ENV: development
     ports:
-      - "8000:8000"
+      - ${APP_PORT}:${APP_PORT}
     working_dir: /app/drf_booking
     command: sh -c "
       export ENV_FOR_DYNACONF=development &&
       python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
+      python manage.py runserver 0.0.0.0:${APP_PORT}"
     networks:
       - dev
 
