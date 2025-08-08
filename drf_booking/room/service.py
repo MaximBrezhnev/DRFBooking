@@ -3,7 +3,6 @@
 """
 
 from rest_framework import status
-from rest_framework.request import Request
 from rest_framework.response import Response
 from room.serializers import (
     RoomCreateSerializer,
@@ -17,13 +16,8 @@ class RoomService:
     """
 
     @staticmethod
-    def create_room(request: Request) -> Response:
+    def create_room(serializer: RoomCreateSerializer) -> Response:
         """Добавить номер в отель."""
 
-        serializer = RoomCreateSerializer(data=request.data)
-
-        if serializer.is_valid():
-            room = serializer.save()
-            return Response(data={"room_id": room.id}, status=status.HTTP_201_CREATED)
-
-        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        room = serializer.save()
+        return Response(data={"room_id": room.id}, status=status.HTTP_201_CREATED)

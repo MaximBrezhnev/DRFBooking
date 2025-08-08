@@ -6,7 +6,7 @@ from rest_framework import filters, mixins, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
 from room.models import Room
-from room.serializers import RoomReadSerializer
+from room.serializers import RoomCreateSerializer, RoomReadSerializer
 from room.service import RoomService
 
 
@@ -18,7 +18,6 @@ class RoomViewSet(
 ):
     """Набор представлений для работы с номерами отеля."""
 
-    lookup_field = "id"
     queryset = Room.objects.all()
     serializer_class = RoomReadSerializer
     filter_backends = [filters.OrderingFilter]
@@ -28,4 +27,7 @@ class RoomViewSet(
     def create(self, request: Request, *args, **kwargs) -> Response:
         """Добавить номер в отель."""
 
-        return RoomService.create_room(request=request)
+        serializer = RoomCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        return RoomService.create_room(serializer=serializer)
