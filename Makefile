@@ -4,7 +4,6 @@ start_localdb:
 
 test:
 	@EXIT_CODE=0; \
-	eval $(poetry env activate)
 	python scripts/generate_env_from_dynaconf.py
 	docker compose -f docker-compose-test.yml build app-test && \
 	docker compose -f docker-compose-test.yml run --rm app-test || EXIT_CODE=$$?; \
