@@ -33,8 +33,8 @@ class BookingService:
 
         overlap_exists = Booking.objects.filter(
             room_id=validated_data["room_id"],
-            date_start__lt=validated_data["date_end"],
-            date_end__gt=validated_data["date_start"],
+            date_start__lte=validated_data["date_end"],
+            date_end__gte=validated_data["date_start"],
         ).exists()
         if overlap_exists:
             return Response(
