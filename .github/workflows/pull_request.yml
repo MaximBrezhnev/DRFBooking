@@ -60,6 +60,9 @@ jobs:
           pip install poetry
           poetry install --no-interaction --no-ansi
 
+      - name: Copy .secrets.yaml.example
+        run: cp drf_booking/.secrets.yaml.example drf_booking/.secrets.yaml
+
       - name: Tests in Docker Containers
         run: |
           make test
