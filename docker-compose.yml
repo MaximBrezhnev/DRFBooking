@@ -2,7 +2,7 @@ services:
   db-dev:
     image: postgres:16-alpine
     volumes:
-      - ~/.pg/pg_data/drf_booking:/var/lib/postgresql/data
+      - drf-pgdata-dev:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
@@ -27,5 +27,7 @@ services:
     networks:
       - dev
 
+volumes:
+  drf-pgdata-dev:
 networks:
   dev:
