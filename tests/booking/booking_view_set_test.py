@@ -3,10 +3,11 @@
 import uuid
 from datetime import date
 
-from booking.models import Booking
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.test import APIClient
+
+from booking.models import Booking
 
 
 # MARK: POST

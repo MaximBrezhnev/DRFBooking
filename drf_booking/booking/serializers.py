@@ -2,8 +2,9 @@
 Сериализаторы для работы с бронями.
 """
 
-from booking.models import Booking
 from rest_framework import serializers
+
+from booking.models import Booking
 
 
 class BookingCreateSerializer(serializers.ModelSerializer):

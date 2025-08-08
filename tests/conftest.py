@@ -5,9 +5,10 @@ from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
 
 import pytest
-from booking.models import Booking
 from faker import Faker
 from rest_framework.test import APIClient
+
+from booking.models import Booking
 from room.models import Room
 
 # MARK: Common
