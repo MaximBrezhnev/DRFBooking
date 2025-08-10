@@ -1,0 +1,33 @@
+services:
+  db-dev:
+    image: postgres:16-alpine
+    volumes:
+      - drf-pgdata-dev:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      - dev
+
+  app:
+    depends_on:
+      - db-dev
+    build:
+      context: .
+      args:
+        ENV: development
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    working_dir: /app/drf_booking
+    command: sh -c "
+      export ENV_FOR_DYNACONF=development &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:${APP_PORT}"
+    networks:
+      - dev
+
+volumes:
+  drf-pgdata-dev:
+networks:
+  dev:

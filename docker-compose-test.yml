@@ -1,0 +1,28 @@
+services:
+  db-test:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      - test
+
+  app-test:
+    depends_on:
+      - db-test
+    build:
+      args:
+        ENV: test
+    command: sh -c "
+      export ENV_FOR_DYNACONF=test &&
+      python drf_booking/manage.py migrate &&
+      pytest \
+      -s -r A \
+      --rootdir=/app/ \
+      --disable-pytest-warnings"
+    networks:
+      - test
+
+networks:
+  test:
